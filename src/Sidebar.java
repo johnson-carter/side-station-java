@@ -1,4 +1,3 @@
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
@@ -17,7 +16,6 @@ public class Sidebar extends JFrame{
     public Sidebar() {
         setWindowProperties();
         initializeSidebarContent();
-        setVisible(true);
     }
 
     private void initializeSidebarContent() { 
