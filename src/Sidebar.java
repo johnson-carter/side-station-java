@@ -1,9 +1,10 @@
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
+
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 import assets.Theme;
 import components.NeuButton;
 
@@ -40,10 +41,31 @@ public class Sidebar extends JFrame{
         minimizeButton.setButtonColor(Theme.BUTTON_COLOR);
         minimizeButton.setShadowOffset(2);
         minimizeButton.setCornerRadius(10);
-        minimizeButton.addActionListener(e -> {
-            JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(minimizeButton);
-            frame.setState(JFrame.ICONIFIED);
+        exitButton.addActionListener(e -> System.exit(0));
+
+minimizeButton.addActionListener(e -> {
+        setVisible(false); // hide main window
+
+        JFrame arrowFrame = new JFrame();
+        arrowFrame.setUndecorated(true);
+        arrowFrame.setAlwaysOnTop(true);
+        arrowFrame.setSize(40, 40);
+
+        // Position it on right edge, center vertically
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int x = screenSize.width - arrowFrame.getWidth();
+        int y = screenSize.height / 2 - arrowFrame.getHeight() / 2;
+        arrowFrame.setLocation(x, y);
+
+        JButton arrowButton = new JButton("▶");
+        arrowButton.addActionListener(ev -> {
+            setVisible(true);
+            arrowFrame.dispose();
         });
+        arrowFrame.add(arrowButton);
+        arrowFrame.setVisible(true);
+    });
+
         
 
         windowControlRail.add(minimizeButton);
